@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-class EmojiMemoryGame {
+class EmojiMemoryGame: ObservableObject {
 //  private(set) means only this class can set the model but everyone can view it
 //  private(set) var model: MemoryGame<String>
     
-    private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
+    @Published private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
     
     static func createMemoryGame() -> MemoryGame<String> {
         let emojis: Array<String> = ["🚀", "🗺", "🔥", "👩🏻‍🎨", "💻", "🧠"]
@@ -22,7 +22,7 @@ class EmojiMemoryGame {
     
 //    var cards is now acting as a getter
     var cards: Array<MemoryGame<String>.Card> {
-        model.cards.shuffled()
+        model.cards
     }
     
     var len: Int {
@@ -31,7 +31,7 @@ class EmojiMemoryGame {
     
 //     MARK: Intent(s)
     
-    func chooseCard(card: MemoryGame<String>.Card) {
-        model.choose(card: card)
+    func chooseCard(_ card: MemoryGame<String>.Card) {
+        model.choose(card)
     }
 }

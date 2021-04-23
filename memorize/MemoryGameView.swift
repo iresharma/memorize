@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  MemoryGameView.swift
 //  memorize
 //
 //  Created by iresh sharma on 22/04/21.
@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MemoryGameView: View {
-    var viewModel: EmojiMemoryGame
+    @ObservedObject var viewModel: EmojiMemoryGame
     var body: some View {
         VStack(alignment: .center, spacing: nil) {
             Text("Memorize, the game").bold().font(.largeTitle)
@@ -16,12 +16,12 @@ struct MemoryGameView: View {
                 ForEach(viewModel.cards){ card in
                     if viewModel.len < 5 {
                         CardView(card: card).onTapGesture {
-                            viewModel.chooseCard(card: card)
+                            viewModel.chooseCard(card)
                         }
                     }
                     else {
                         CardView(card: card, font: .subheadline).onTapGesture {
-                            viewModel.chooseCard(card: card)
+                            viewModel.chooseCard(card)
                         }
                     }
                 }
@@ -38,13 +38,13 @@ struct CardView: View {
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
             if card.isFaceUp {
-                RoundedRectangle(cornerRadius: 25.0).fill(Color.white)
+                RoundedRectangle(cornerRadius: 15.0).fill(Color.white)
                 Text(card.content).font(.largeTitle)
             } else {
-                RoundedRectangle(cornerRadius: 25.0).fill()
+                RoundedRectangle(cornerRadius: 15.0).fill()
             }
 //                  The code underneath will create the desired look in light mode but F up in dark mode that's why we add the line above to fix it
-            RoundedRectangle(cornerRadius: 25.0).stroke(lineWidth: 5)
+            RoundedRectangle(cornerRadius: 15.0).stroke(lineWidth: 5)
         }.aspectRatio(0.6, contentMode: ContentMode.fit)
     }
 }
